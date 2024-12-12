@@ -19,7 +19,7 @@ use App\Imports\BooksImport;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('books.index');
 });
 
 //CRUD category
