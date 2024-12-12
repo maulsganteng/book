@@ -24,7 +24,7 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
+            'name' => 'required|unique:books,name',
             'book_category_id' => 'required|exists:book_categories,id',
             'author' => 'required',
             'description' => 'nullable',

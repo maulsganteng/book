@@ -3,12 +3,16 @@
 
 @section('content')
     <h1>Daftar Buku</h1>
+    <br>
     <form action="/import-books" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="file" name="file" required>
-        <button type="submit">Import Books</button>
+        <button class="btn btn-primary"type="submit">Import Books</button>
+        <a href="{{ route('books.export') }}" class="btn btn-success" style="padding: 10px; background-color: green; color: white; text-decoration: none; border-radius: 5px;">
+            Export Books
+        </a>
     </form>
-
+    <br>
     <a href="{{ route('books.create') }}" class="btn btn-primary">Tambah Buku</a>
 
     @if(session('success'))
@@ -17,7 +21,7 @@
         </div>
     @endif
 
-    <table class="table">
+    <table class="table" id="table">
         <thead>
             <tr>
                 <th>Nama Buku</th>
@@ -46,4 +50,9 @@
             @endforeach
         </tbody>
     </table>
+    <script>
+        $(document).ready(function() {
+            $('#table').DataTable();  // Menambahkan fitur DataTables
+        });
+    </script>
 @endsection

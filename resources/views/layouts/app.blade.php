@@ -11,6 +11,16 @@
 
     <!-- Tambahkan CSS tambahan jika diperlukan -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+
+    <!-- Link ke CSS DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
+
+    <!-- Link ke jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Link ke JavaScript DataTables -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">

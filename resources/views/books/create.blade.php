@@ -2,6 +2,25 @@
 @extends('layouts.app')
 
 @section('content')
+<!-- Alert Error -->
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <strong>Error!</strong> Please check the following issues:
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+        <!-- Alert Sukses -->
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+
     <h1>Tambah Buku</h1>
 
     <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data">
@@ -36,7 +55,7 @@
 
         <div class="form-group">
             <label for="thumbnail">Thumbnail</label>
-            <input type="file" class="form-control" id="thumbnail" name="thumbnail">
+            <input type="file" class="form-control" id="thumbnail" name="thumbnail" required>
         </div>
 
         <button type="submit" class="btn btn-success">Simpan</button>

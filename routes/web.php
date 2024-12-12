@@ -29,7 +29,7 @@ Route::resource('books', BookController::class);
 
 Route::get('/export-books', function () {
     return Excel::download(new BooksExport, 'books.xlsx');
-});
+})->name('books.export');
 
 
 Route::post('/import-books', function (Request $request) {
