@@ -4,12 +4,16 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BookCategoryController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\AuthorController;
+use App\Http\Controllers\SendEmailController;
+use App\Http\Controllers\PublisherController;
+
 
 use App\Exports\BooksExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Imports\BooksImport;
-use App\Http\Controllers\Auth\SocialateController;
+// use App\Http\Controllers\Auth\SocialateController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,11 +40,31 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 //CRUD category
-Route::resource('book-categories', BookCategoryController::class);
-Route::resource('books', BookController::class);
+// Route::resource('book-categories', BookCategoryController::class);
+// Route::resource('books', BookController::class);
+
+Route::prefix('books')->group(function () {
+    Route::get('/', [BookController::class, 'index'])->name('books.index');
+    Route::get('/create', [BookController::class, 'create'])->name('books.create');
+    Route::post('/', [BookController::class, 'store'])->name('books.store');
+    Route::get('/{book}/edit', [BookController::class, 'edit'])->name('books.edit');
+    Route::put('/{book}', [BookController::class, 'update'])->name('books.update');
+    Route::delete('/{book}', [BookController::class, 'destroy'])->name('books.destroy');
+});
+
+Route::prefix('category')->group(function () {
+    Route::get('/', [BookCategoryController::class, 'index'])->name('book-categories.index');
+    Route::get('/create', [BookCategoryController::class, 'create'])->name('book-categories.create');
+    Route::post('/', [BookCategoryController::class, 'store'])->name('book-categories.store');
+    Route::get('/{category}/edit', [BookCategoryController::class, 'edit'])->name('book-categories.edit');
+    Route::put('/{category}', [BookCategoryController::class, 'update'])->name('book-categories.update');
+    Route::delete('/{category}', [BookCategoryController::class, 'destroy'])->name('book-categories.destroy');
+});
+
+Route::resource('authors', AuthorController::class);
 
 
 Route::get('/export-books', function () {
@@ -58,6 +82,19 @@ Route::post('/import-books', function (Request $request) {
     return redirect()->back()->with('success', 'Books imported successfully.');
 });
 
-Route::get('/auth/redirect', [SocialateController::class,'redirect']);
+// Route::get('/auth/redirect', [SocialateController::class,'redirect']);
+Route::get('oauth/google', [\App\Http\Controllers\OauthController::class, 'redirectToProvider'])->name('oauth.google');
+Route::get('oauth/google/callback', [\App\Http\Controllers\OauthController::class, 'handleProviderCallback'])->name('oauth.google.callback');
+// Route::get('/auth/google/callback',[SocialateController::class,'callback']);
 
-Route::get('/auth/google/callback',[SocialateController::class,'callback']);
+Route::get('/send-email', [SendEmailController::class, 'index'])->name('kirim-email');
+
+Route::post('/post-email', [SendEmailController::class, 'store'])->name('post-email');
+
+
+Route::get('/publisher', [PublisherController::class, 'index'])->name('publisher.index');
+Route::post('/publisher', [PublisherController::class, 'store'])->name('publisher.store');
+Route::get('/publisher/create', [PublisherController::class, 'create'])->name('publisher.create');
+Route::get('/publisher/{id}/edit', [PublisherController::class, 'edit'])->name('publisher.edit');
+Route::put('/publisher/{id}', [PublisherController::class, 'update'])->name('publisher.update');
+Route::get('/publisher/{id}/delete', [PublisherController::class, 'delete'])->name('publisher.delete');

@@ -11,10 +11,8 @@ class BooksImport implements ToModel
     {
         return new Book([
             'name' => $row[0],
-            'book_category_id' => $row[1],
-            'description' => $row[2],
-            'author' => $row[3],
+            'description' => $row[1],
+            'author' => $row[2],
         ]);
     }
 }
-

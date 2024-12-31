@@ -27,6 +27,7 @@
                 <th>Nama Buku</th>
                 <th>Kategori</th>
                 <th>Penulis</th>
+                <th>Deskripsi</th>
                 <th>Thumbnail</th>
                 <th>Aksi</th>
             </tr>
@@ -35,8 +36,9 @@
             @foreach ($books as $book)
                 <tr>
                     <td>{{ $book->name }}</td>
-                    <td>{{ $book->category->name }}</td>
+                    <td>{{ $book->categories }}</td>
                     <td>{{ $book->author }}</td>
+                    <td>{{ $book->description}}</td>
                     <td><img src="{{ asset('storage/' . $book->thumbnail) }}" width="50" alt="thumbnail"></td>
                     <td>
                         <a href="{{ route('books.edit', $book->id) }}" class="btn btn-warning">Edit</a>
@@ -50,9 +52,12 @@
             @endforeach
         </tbody>
     </table>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#table').DataTable();  // Menambahkan fitur DataTables
+            // Mengaktifkan DataTables pada elemen dengan ID 'example'
+            $('#table').DataTable();
         });
     </script>
 @endsection

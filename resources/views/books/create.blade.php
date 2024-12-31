@@ -1,63 +1,79 @@
-<!-- resources/views/books/create.blade.php -->
 @extends('layouts.app')
 
 @section('content')
-<!-- Alert Error -->
-        @if ($errors->any())
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <!-- Alert Error -->
+            @if ($errors->any())
             <div class="alert alert-danger">
                 <strong>Error!</strong> Please check the following issues:
                 <ul>
                     @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
+                    <li>{{ $error }}</li>
                     @endforeach
                 </ul>
             </div>
-        @endif
+            @endif
 
-        <!-- Alert Sukses -->
-        @if (session('success'))
+            <!-- Alert Success -->
+            @if (session('success'))
             <div class="alert alert-success">
                 {{ session('success') }}
             </div>
-        @endif
+            @endif
 
-    <h1>Tambah Buku</h1>
+            <!-- Card Form -->
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Tambah Buku</h4>
+                </div>
+                <div class="card-body">
+                    <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        <!-- Book Name -->
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Book Name:</label>
+                            <input type="text" name="name" id="name" class="form-control" placeholder="Enter Book Name" required>
+                        </div>
 
-    <form action="{{ route('books.store') }}" method="POST" enctype="multipart/form-data">
-        @csrf
+                        <!-- Categories -->
+                        <div class="mb-3">
+                            <label for="categories" class="form-label">Categories:</label>
+                            <select name="categories[]" id="categories" class="form-select" multiple required>
+                                @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                            <small class="form-text text-muted">Hold Ctrl (Windows) or Command (Mac) to select multiple.</small>
+                        </div>
 
-        <div class="form-group">
-            <label for="name">Nama Buku</label>
-            <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" required>
+                        <!-- Author -->
+                        <div class="form-group">
+                            <label for="author">Penulis</label>
+                            <input type="text" class="form-control" id="author" name="author" value="{{ old('author') }}" required>
+                        </div>
+
+                        <!-- Description -->
+                        <div class="mb-3">
+                            <label for="description" class="form-label">Description:</label>
+                            <textarea name="description" id="description" class="form-control" rows="4" placeholder="Enter a brief description"></textarea>
+                        </div>
+
+                        <!-- Thumbnail -->
+                        <div class="mb-3">
+                            <label for="thumbnail" class="form-label">Thumbnail:</label>
+                            <input type="file" name="thumbnail" id="thumbnail" class="form-control">
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-success">Save Book</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div class="form-group">
-            <label for="book_category_id">Kategori Buku</label>
-            <select class="form-control" id="book_category_id" name="book_category_id" required>
-                <option value="">Pilih Kategori</option>
-                @foreach ($categories as $category)
-                    <option value="{{ $category->id }}" {{ old('book_category_id') == $category->id ? 'selected' : '' }}>
-                        {{ $category->name }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="author">Penulis</label>
-            <input type="text" class="form-control" id="author" name="author" value="{{ old('author') }}" required>
-        </div>
-
-        <div class="form-group">
-            <label for="description">Deskripsi</label>
-            <textarea class="form-control" id="description" name="description">{{ old('description') }}</textarea>
-        </div>
-
-        <div class="form-group">
-            <label for="thumbnail">Thumbnail</label>
-            <input type="file" class="form-control" id="thumbnail" name="thumbnail" required>
-        </div>
-
-        <button type="submit" class="btn btn-success">Simpan</button>
-    </form>
+    </div>
+</div>
 @endsection

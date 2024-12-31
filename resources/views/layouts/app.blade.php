@@ -12,14 +12,15 @@
         <!-- Tambahkan CSS tambahan jika diperlukan -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-        <!-- Link ke CSS DataTables -->
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css">
-
+        <!-- Link CSS DataTables -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    
+    <!-- Link CSS jQuery UI (optional, untuk tampilan) -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <!-- Link ke jQuery -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        <!-- Link ke JavaScript DataTables -->
-        <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+        
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -47,6 +48,7 @@
                 @yield('content')
             </div>
         </div>
+        
         
         <!-- Tambahkan Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
