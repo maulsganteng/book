@@ -39,7 +39,10 @@
                 </a>
             @endif
 
-            <x-primary-button class="ms-3">
+            <x-primary-button  class="g-recaptcha btn btn-primary btn-lg "
+                                    data-sitekey="{{ config('services.recaptcha_v3.siteKey') }}"
+                                    data-callback="onSubmit"
+                                    data-action="submitContact">
                 {{ __('Log in') }}
             </x-primary-button>
         </div>

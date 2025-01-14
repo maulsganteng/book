@@ -21,11 +21,8 @@
                     <x-nav-link :href="route('book-categories.index')" :active="request()->routeIs('book-categories.index')">
                         {{ __('Book category') }}
                     </x-nav-link>
-                    <x-nav-link :href="route('authors.index')" :active="request()->routeIs('authors.index')">
-                        {{ __('Author') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('publisher.index')" :active="request()->routeIs('publisher.index')">
-                        {{ __('publisher') }}
+                    <x-nav-link :href="route('kirim-email')" :active="request()->routeIs('kirim-email')">
+                        {{ __('Email') }}
                     </x-nav-link>
                 </div>
             </div>

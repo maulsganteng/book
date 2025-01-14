@@ -13,6 +13,9 @@ use App\Exports\BooksExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use App\Imports\BooksImport;
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\SendEmail;
 // use App\Http\Controllers\Auth\SocialateController;
 
 /*
@@ -87,10 +90,21 @@ Route::get('oauth/google', [\App\Http\Controllers\OauthController::class, 'redir
 Route::get('oauth/google/callback', [\App\Http\Controllers\OauthController::class, 'handleProviderCallback'])->name('oauth.google.callback');
 // Route::get('/auth/google/callback',[SocialateController::class,'callback']);
 
+//send email
 Route::get('/send-email', [SendEmailController::class, 'index'])->name('kirim-email');
 
 Route::post('/post-email', [SendEmailController::class, 'store'])->name('post-email');
 
+Route::get('/send',function(){
+    $data = [
+        'name' => 'Liljkt48',
+        'body' => 'Testing Kirim Email di Santri Koding'
+    ];
+    
+    Mail::to('muhammadfikri6910@smk.belajar.id')->send(new SendEmail($data));
+    
+    dd("Email Berhasil dikirim.");
+});
 
 Route::get('/publisher', [PublisherController::class, 'index'])->name('publisher.index');
 Route::post('/publisher', [PublisherController::class, 'store'])->name('publisher.store');
@@ -98,3 +112,4 @@ Route::get('/publisher/create', [PublisherController::class, 'create'])->name('p
 Route::get('/publisher/{id}/edit', [PublisherController::class, 'edit'])->name('publisher.edit');
 Route::put('/publisher/{id}', [PublisherController::class, 'update'])->name('publisher.update');
 Route::get('/publisher/{id}/delete', [PublisherController::class, 'delete'])->name('publisher.delete');
+Route::get('/send-email-test', [SendEmailController::class, 'SendEmail']);
